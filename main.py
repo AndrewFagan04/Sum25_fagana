@@ -1,6 +1,7 @@
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
 import datetime
+from pypdf import PdfReader
 import os
 
 d = datetime.datetime.now()
@@ -8,17 +9,35 @@ d = datetime.datetime.now()
 
 
 def read_file():
+    folder = input("What is your folder's name that contains the file you'd like to open?: ")
     user = input("What file would you like to learn about?: ")
+    type = input("What type of file you'd like to open?: ")
 
-    #opens files
-    file = open(user, 'r')
+    if(type == 'text'):
+        #opens files
+        file = open(folder+"/"+user, 'r')
 
-    #reads file
-    content = file.read()
-    print(content)
+        #reads file
+        content = file.read()
+        print(content)
 
-    #closes file
-    file.close()
+        #closes file
+        file.close()
+    
+    elif(type == 'pdf'):
+        # creating a pdf reader object
+        reader = PdfReader(folder+"/"+user)
+
+        for p in range(len(reader.pages)):
+            #creating a page object
+            page = reader.pages[p]
+
+            # extracting text from page
+            content = page.extract_text()
+            print(content)
+    
+    else:
+        print("Try Again")
     
     return content
 
@@ -90,6 +109,7 @@ def handle_conversation(model_name, name, template, content):
 
 if __name__ == "__main__":
     c = read_file()
-    m, n, t = models()
+    m, n, t = models()                              
     handle_conversation(m, n, t, c)
 
+       
