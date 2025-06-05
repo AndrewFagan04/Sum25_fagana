@@ -1,5 +1,14 @@
+What is Ollama? Running Local LLMs Made Simple:
 https://www.youtube.com/watch?v=5RIOQuHOihY
 
+Create a LOCAL Python AI Chatbot In Minutes Using Ollama:
 https://www.youtube.com/watch?v=d0o89z134CQ
 
+
 https://github.com/ollama/ollama
+
+Build a Python Website in 15 Minutes With Streamlit: 
+https://www.youtube.com/watch?v=2siBrMsqF44
+
+How to get data from PPTX file into Pandas DF with Python. Python PPTX PowerPoint package.
+https://www.youtube.com/watch?v=O0d2Z_zRtxY

@@ -1,3 +1,6 @@
+#How to get data from PPTX file into Pandas DF with Python. Python PPTX PowerPoint package.
+#https://www.youtube.com/watch?v=O0d2Z_zRtxY
+
 from pptx import Presentation
 import pandas as pd
 

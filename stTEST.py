@@ -11,7 +11,7 @@ import psutil
 
 d = datetime.datetime.now()
 
-
+st.title("SUNY Poly Academic Calendar Fall 2025 Ai-Answerer")
 
 user_input = st.text_input("Ask Here", "")
 if (user_input != None) and (st.button("-->")):
@@ -62,6 +62,7 @@ if (user_input != None) and (st.button("-->")):
     st.write({"gemma3:12b": [result]})
 
 
+#https://discuss.streamlit.io/t/close-streamlit-app-with-button-click/35132/4
 if st.button("STOP"):
     time.sleep(1)
     keyboard.press_and_release('ctrl+w')
