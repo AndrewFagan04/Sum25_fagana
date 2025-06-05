@@ -9,6 +9,10 @@ import matplotlib.pyplot as plt
 st.write("hello world")
 st.write({"key": ["value"]})
 
+title = st.text_input("Movie title", "Write Here")
+if title != 'Write Here':
+    st.write("The current movie title is", title)
+
 st.title("Simple Data Dashboard")
 
 uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
