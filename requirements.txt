@@ -7,3 +7,5 @@ keyboard==0.13.5
 pypdf==5.6.0
 psutil==7.0.0
 DateTime==5.5
+dotenv==0.9.9
+google-genai==1.19.0
