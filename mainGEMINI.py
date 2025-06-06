@@ -1,45 +1,75 @@
-from langchain_ollama import OllamaLLM
-from langchain_core.prompts import ChatPromptTemplate
 import datetime
 from pypdf import PdfReader
 import os
+import streamlit as st
+import pandas as pd
+import time
+import keyboard
+import psutil
+from google import genai
+from google.genai import types
+import dotenv
 
 d = datetime.datetime.now()
 
 
 
+############################################
+#chatGEMINI
+
+dotenv.load_dotenv()
+
+def generate():
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+    model = "gemma-3-27b-it"
+    contents = [types.Content(role="user", parts=[types.Part.from_text(text="can you read this?")])]
+    generate_content_config = types.GenerateContentConfig(
+        temperature=0,
+        safety_settings=[
+            types.SafetySetting(
+                category="HARM_CATEGORY_HARASSMENT",
+                threshold="BLOCK_MEDIUM_AND_ABOVE",  # Block some
+            ),
+            types.SafetySetting(
+                category="HARM_CATEGORY_HATE_SPEECH",
+                threshold="BLOCK_MEDIUM_AND_ABOVE",  # Block some
+            ),
+            types.SafetySetting(
+                category="HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                threshold="BLOCK_MEDIUM_AND_ABOVE",  # Block some
+            ),
+            types.SafetySetting(
+                category="HARM_CATEGORY_DANGEROUS_CONTENT",
+                threshold="BLOCK_MEDIUM_AND_ABOVE",  # Block some
+            ),
+        ],
+        response_mime_type="text/plain",
+    )
+
+    for chunk in client.models.generate_content_stream(
+        model=model,
+        contents=contents,
+        config=generate_content_config,
+    ):
+        print(chunk.text, end="")
+
+############################################
+
 def read_file():
-    folder = input("What is your folder's name that contains the file you'd like to open?: ")
-    user = input("What file would you like to learn about?: ")
-    type = input("What type of file you'd like to open?: ")
+    # creating a pdf reader object
+    reader = PdfReader("SUNY Web/Fall2025.pdf")
 
-    if(type == 'text'):
-        #opens files
-        file = open(folder+"/"+user, 'r')
+    content = ""
+    for p in range(len(reader.pages)):
+        #creating a page object
+        page = reader.pages[p]
 
-        #reads file
-        content = file.read()
-        print(content)
-
-        #closes file
-        file.close()
-    
-    elif(type == 'pdf'):
-        # creating a pdf reader object
-        reader = PdfReader(folder+"/"+user)
-
-        for p in range(len(reader.pages)):
-            #creating a page object
-            page = reader.pages[p]
-
-            # extracting text from page
-            content = page.extract_text()
-            print(content)
-    
-    else:
-        print("Try Again")
-    
+        # extracting text from page
+        content += "\n" + page.extract_text()
+        
     return content
+
 
 
 
@@ -111,5 +141,6 @@ if __name__ == "__main__":
     c = read_file()
     m, n, t = models()                              
     handle_conversation(m, n, t, c)
+    generate()
 
        
