@@ -12,3 +12,9 @@ https://www.youtube.com/watch?v=2siBrMsqF44
 
 How to get data from PPTX file into Pandas DF with Python. Python PPTX PowerPoint package.
 https://www.youtube.com/watch?v=O0d2Z_zRtxY
+
+Deploy Your AI Streamlit App for FREE | Step-by-Step (Heroku Alternative)
+https://www.youtube.com/watch?v=74c3KaAXPvk&t=365s
+
+How to Use the Gemini API with Python - Build a Customizable AI Chatbot
+https://www.youtube.com/watch?v=CaxPa1FuHx4

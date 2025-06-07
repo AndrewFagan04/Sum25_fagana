@@ -5,6 +5,9 @@ from google.genai import types
 from dotenv import load_dotenv
 from pypdf import PdfReader
 
+
+with st.sidebar:
+    st.image("AnswerNestLOGO.png", width=1000)
 st.title("SUNY Poly Academic Calendar Ai-Answerer (Fall 2025)")
 
 user_input = st.text_area("Ask something:")
