@@ -10,8 +10,17 @@ with st.sidebar:
     st.image("AnswerNestLOGO.png", width=1000)
 st.title("SUNY Poly Academic Calendar Ai-Answerer (Fall 2025)")
 
-user_input = st.text_area("Ask something:")
-submit = st.button("Generate")
+
+if 'messages' not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+
+
+        
 
 load_dotenv()
 
@@ -31,7 +40,11 @@ def read_file():
 
 
 def generate(context):
-    if submit and user_input:
+    if user_input := st.chat_input("Ask something:"):
+        with st.chat_message("user"):
+            st.markdown(user_input)
+        st.session_state.messages.append({"role": "user", "content": user_input})
+
         api_key=os.getenv("GEMINI_API_KEY")
         client = genai.Client(api_key=api_key)
 
@@ -46,9 +59,21 @@ def generate(context):
                 contents=contents,
                 config=config):
                 result += chunk.text or ""
-            st.write(result)
+
+
+            response = f"Gemini: {result}"
+            with st.chat_message("assistant"):
+                st.markdown(response)
+            st.session_state.messages.append({"role": "assistant", "content": response})
+
+def delete():
+    if st.button("Delete History"):
+        for message in st.session_state:
+            del st.session_state[message]
+
 
 
 if __name__ == "__main__":
-    c = read_file()                            
-    generate(c)
+    context = read_file()                            
+    generate(context)
+    delete()
