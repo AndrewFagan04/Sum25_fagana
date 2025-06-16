@@ -8,7 +8,7 @@ from pypdf import PdfReader
 
 with st.sidebar:
     st.image("AnswerNestLOGO.png", width=1000)
-st.title("SUNY Poly Academic Calendar Ai-Answerer (Fall 2025)")
+st.title("Asif Ahmed's Ai-Answerer")
 
 
 if 'messages' not in st.session_state:
@@ -18,25 +18,33 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+option = st.selectbox("Options",("Chapter 11 - Deep Foundations",
+                                 "Shallow Foundation - Step by Step",
+                                 "Types of Foundations Footings in Building Construction Video",
+                                 "Shallow Foundations and Their Types Foundations in Building Video",
+                                 "Foundation Insulation Effectiveness Frost Protected Shallow Foundations Video"))
 
 
         
 
 load_dotenv()
 
-def read_file():
+def read_file(option):
+    if option == "Chapter 11 - Deep Foundations":
+        file = "Deep Foundation Cudotu.pdf"
+    elif option == "Shallow Foundation - Step by Step":
+        file = "shallow foundation step by step.pdf"
+    elif option == "Types of Foundations Footings in Building Construction Video":
+        file = "Types of Foundations  Footings in Building Construction.pdf"
+    elif option == "Shallow Foundations and Their Types Foundations in Building Video":
+        file = "Shallow Foundations and Their Types Foundations in Building 2.pdf"
+    elif option == "Foundation Insulation Effectiveness Frost Protected Shallow Foundations Video":
+        file = "Foundation Insulation Effectiveness Frost Protected Shallow Foundations.pdf"
+    
     # creating a pdf reader object
-    reader = PdfReader("AsifAhmed/shallow foundation step by step.pdf")
+    reader = PdfReader("AsifAhmed/" + file)
 
     context = ""
-    for p in range(len(reader.pages)):
-        #creating a page object
-        page = reader.pages[p]
-
-        # extracting text from page
-        context += "\n" + page.extract_text()
-    
-    reader = PdfReader("AsifAhmed/Deep Foundation Cudotu.pdf")
     for p in range(len(reader.pages)):
         #creating a page object
         page = reader.pages[p]
@@ -83,6 +91,6 @@ def delete():
 
 
 if __name__ == "__main__":
-    context = read_file()                            
+    context = read_file(option)                            
     generate(context)
     delete()
