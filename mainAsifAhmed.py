@@ -89,7 +89,7 @@ def generate(context):
         with st.spinner("Generating..."):
             result = ""
             for chunk in client.models.generate_content_stream(
-                model="gemini-1.5-flash-8b", #or gemma-1.5-flash
+                model="gemini-2.0-flash", #these versions aren't in use anymore: gemma-1.5-flash, gemini-1.5-flash-8b
                 contents=contents,
                 config=config):
                 result += chunk.text or ""
