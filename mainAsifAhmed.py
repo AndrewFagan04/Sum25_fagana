@@ -11,6 +11,10 @@ with st.sidebar:
 st.title("Asif Ahmed's Ai-Answerer")
 
 
+#issues with gemini api key getting taken down, work on later by potentionaly paying
+st.header("Chatbot temporarily down...")
+
+
 if 'messages' not in st.session_state:
     st.session_state.messages = []
 
